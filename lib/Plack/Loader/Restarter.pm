@@ -52,7 +52,10 @@ sub valid_file {
     if ( $file->{path} =~ m{(\d+)$} && $1 >= 4913 && $1 <= 5036) {
         return 0;
     }
-    $file->{path} !~ m!^\.(?:git|svn)[/\\]|\.(?:bak|swp|swpx|swx)$|~$|_flymake\.p[lm]$|\.#!;
+    $file->{path} !~ m!^\.(?:git|svn)[/\\]|\.(?:bak|swp|swpx|swx)$|~$|_flymake\.p[lm]$|\.#!
+        &&
+        $file->{path} !~ m!$self->{ignore_regexp}!;
+    # FIXME make this configurable^
 }
 
 sub run {
